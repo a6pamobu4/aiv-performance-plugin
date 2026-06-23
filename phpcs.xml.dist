@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<ruleset name="AIV Performance">
+	<description>PHP_CodeSniffer rules for AIV Performance.</description>
+
+	<file>.</file>
+
+	<exclude-pattern>vendor/*</exclude-pattern>
+	<exclude-pattern>node_modules/*</exclude-pattern>
+
+	<config name="testVersion" value="8.1-"/>
+
+	<rule ref="WordPress"/>
+	<rule ref="PHPCompatibilityWP"/>
+
+	<rule ref="WordPress.WP.I18n">
+		<properties>
+			<property name="text_domain" type="array">
+				<element value="aiv-performance"/>
+			</property>
+		</properties>
+	</rule>
+</ruleset>

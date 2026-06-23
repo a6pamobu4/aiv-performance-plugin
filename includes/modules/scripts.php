@@ -20,16 +20,18 @@ if ( ! defined( 'ABSPATH' ) ) {
  * @param string $src    Script source.
  * @return string
  */
-function aiv_perf_defer_selected_scripts( string $tag, string $handle, string $src ): string {
-	if ( ! aiv_perf_is_frontend_request() || aiv_perf_is_logged_in_request() ) {
+function aiv_performance_defer_selected_scripts( string $tag, string $handle, string $src ): string {
+	unset( $src );
+
+	if ( ! aiv_performance_is_frontend_request() ) {
 		return $tag;
 	}
 
-	if ( aiv_perf_is_woocommerce_sensitive_page() ) {
+	if ( aiv_performance_is_woocommerce_sensitive_page() ) {
 		return $tag;
 	}
 
-	$defer_handles = aiv_perf_normalize_string_list(
+	$defer_handles = aiv_performance_normalize_string_list(
 		apply_filters( 'aiv_performance_defer_script_handles', array() )
 	);
 
@@ -37,17 +39,22 @@ function aiv_perf_defer_selected_scripts( string $tag, string $handle, string $s
 		return $tag;
 	}
 
-	$blocked_handles = aiv_perf_normalize_string_list(
+	$blocked_handles = aiv_performance_normalize_string_list(
 		apply_filters(
 			'aiv_performance_never_defer_script_handles',
 			array(
+				'jquery-ui-core',
 				'jquery',
 				'jquery-core',
 				'jquery-migrate',
-				'wc-checkout',
+				'woocommerce',
+				'wc-add-to-cart',
+				'wc-add-to-cart-variation',
 				'wc-cart',
 				'wc-cart-fragments',
-				'woocommerce',
+				'wc-checkout',
+				'wc-credit-card-form',
+				'wc-single-product',
 			)
 		)
 	);
@@ -62,4 +69,4 @@ function aiv_perf_defer_selected_scripts( string $tag, string $handle, string $s
 
 	return str_replace( '<script ', '<script defer ', $tag );
 }
-add_filter( 'script_loader_tag', 'aiv_perf_defer_selected_scripts', 10, 3 );
+add_filter( 'script_loader_tag', 'aiv_performance_defer_selected_scripts', 10, 3 );

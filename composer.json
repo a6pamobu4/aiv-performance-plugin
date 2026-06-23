@@ -1,0 +1,20 @@
+{
+	"name": "aiv-web/aiv-performance",
+	"description": "Safe modular performance optimizations for custom WordPress projects.",
+	"type": "wordpress-plugin",
+	"license": "GPL-2.0-or-later",
+	"require-dev": {
+		"dealerdirect/phpcodesniffer-composer-installer": "^1.0",
+		"phpcompatibility/phpcompatibility-wp": "^2.1",
+		"wp-coding-standards/wpcs": "^3.1"
+	},
+	"config": {
+		"allow-plugins": {
+			"dealerdirect/phpcodesniffer-composer-installer": true
+		}
+	},
+	"scripts": {
+		"lint:php": "phpcs --standard=phpcs.xml.dist",
+		"fix:php": "phpcbf --standard=phpcs.xml.dist"
+	}
+}
